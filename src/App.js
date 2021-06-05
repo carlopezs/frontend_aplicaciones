@@ -1,16 +1,33 @@
-import './App.css';
-import { BrowserRouter as Router,
-
-} from 'react-router-dom';
-import Header from './header';
+import "./App.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Home from "./Components/Home";
+import { Header } from "./Components/Header";
+import { Productos } from "./Components/Productos";
+import { Ajuste } from "./Components/Ajuste";
+import { Kardex } from "./Components/Kardex";
 
 function App() {
   return (
-    <div className="App">
-      <Router></Router>
-      <Header>
-      </Header>
-    </div>
+    <Router>
+      <div className="App">
+        {/* De lo mas especifico a lo mas general */}
+        <Header></Header>
+        <Switch>
+          <Route path="/productos">
+            <Productos />
+          </Route>
+          <Route path="/ajuste">
+            <Ajuste />
+          </Route>
+          <Route path="/kardex">
+            <Kardex />
+          </Route>
+          <Route path="/">
+            <Home></Home>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
