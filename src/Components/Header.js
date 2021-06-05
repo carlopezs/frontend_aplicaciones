@@ -1,6 +1,11 @@
 import React from "react";
 import logo_02 from "../images/Logo_02.png";
 import { Link } from "react-router-dom";
+import '../css/animate.css';
+import '../css/bootstrap.min.css';
+import '../css/default.css';
+import '../css/lineicons.css';
+import '../css/style.css';
 
 export const Header = () => {
   return (
