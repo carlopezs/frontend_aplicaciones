@@ -530,7 +530,10 @@ p {
   -ms-transition: all 0.3s ease-out 0s;
   -o-transition: all 0.3s ease-out 0s;
   transition: all 0.3s ease-out 0s;
-  padding: 3px 0; }/*cambiar*/
+  padding: 3px 0;
+  padding-left: 3%;
+  padding-right: 3%; }/*cambiar*/
+  
 
 .navbar-brand {
   padding: 0; }
