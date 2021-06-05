@@ -1,9 +1,21 @@
-import React from 'react'
+import React from "react";
+import { getProducts } from "../helpers/getProducts";
+import { useEffect, useState } from "react";
 
 export const Productos = () => {
-    return (
-        <div>
-            <p>Este es el componente de productos 🤣</p>
-        </div>
-    )
-}
+  
+   const [products, setproducts] = useState([]);
+   useEffect(() => {
+       getProducts().then((arrayProducts) =>{
+           setproducts(arrayProducts);
+       })
+   },[])
+   
+  
+  
+  return (
+    <>
+      {products.map(res => (<li key={res.pro_id}>{res.pro_stock}</li>))}
+    </>
+  );
+};
