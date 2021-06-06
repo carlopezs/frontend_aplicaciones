@@ -6,6 +6,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import NavigationIcon from '@material-ui/icons/Navigation';
 import { makeStyles, StylesProvider } from '@material-ui/core/styles';
 import VentanaProductos from './VentanaProductos';
+import CabeceraAjuste from './CabeceraAjuste';
+import DetalleAjuste from './DetalleAjuste';
 
 const useStyles = makeStyles((theme)=>({
     add:{
@@ -26,7 +28,9 @@ export const Ajuste = () => {
         setOpen(false);
       };
     return (
-        <div>
+        <div> 
+            <CabeceraAjuste></CabeceraAjuste>
+            <DetalleAjuste></DetalleAjuste>
             <Fab className={classes.add} position= 'absolute' 
             bottom='theme.spacing(2)' right= 'theme.spacing(2)' 
              color='primary' aria-label='add'

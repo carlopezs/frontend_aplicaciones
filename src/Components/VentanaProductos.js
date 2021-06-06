@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dialog, DialogTitle, DialogContent} from '@material-ui/core';
-
+import {ProductAjusCard} from './ProductAjusCard';
+import { getProductsAjuste } from "../helpers/Products";
 
 
 
@@ -19,12 +20,23 @@ import { Dialog, DialogTitle, DialogContent} from '@material-ui/core';
     );
 }; */
 
+
+
 export default function VentanaProductos(props) {
     const { onClose, selectedValue, open } = props;
   
     const handleClose = () => {
       onClose(selectedValue);
     };
+
+    const [products, setProducts] = useState([]);
+
+   useEffect(() => {
+       getProductsAjuste().then((arrayProducts) =>{
+           setProducts(arrayProducts);
+       })
+   },[])
+   
   
    
   
@@ -34,7 +46,9 @@ export default function VentanaProductos(props) {
             <div>Productos</div>
         </DialogTitle>
         <DialogContent>
-            <div>ListadoProductos</div>
+             
+             {products.map(res => (<ProductAjusCard key={res.pro_id} product={res} setProducts={setProducts}></ProductAjusCard>))}
+           
         </DialogContent>
     </Dialog>
     );
