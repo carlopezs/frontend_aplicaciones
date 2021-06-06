@@ -17,20 +17,19 @@ const useStyles = makeStyles(() => ({
 
 export const Productos = () => {
     const boxStyle = useStyles(); 
-   const [products, setProducts] = useState([]);
+   const [products, setProducts] = useState({data:[],loading:false});
 
    useEffect(() => {
        getProducts().then((arrayProducts) =>{
-           setProducts(arrayProducts);
+           setProducts({data:arrayProducts,loading:true});
        })
    },[])
-   
-  
+
   return (
     <>
-    <SearchProducts setProducts={setProducts}></SearchProducts>
+    {products.loading &&<SearchProducts setProducts={setProducts} products={products}></SearchProducts>}
     <Box className={boxStyle.content} display="flex" flexWrap="wrap" justifyContent="center"  > 
-      {products.map(res => (<ProductCard key={res.pro_id} product={res} setProducts={setProducts}></ProductCard>))}
+      {products.data.map(res => (<ProductCard key={res.pro_id} product={res} setProducts={setProducts}></ProductCard>))}
     </Box>
     </>
   );

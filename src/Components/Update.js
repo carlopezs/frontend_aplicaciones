@@ -56,11 +56,11 @@ export const Update = ({ modal, setModal, product,setProducts,update }) => {
 
   const updateProductos= async (e)=>{
     e.preventDefault();
+    setProducts((productos)=>{return({data:productos.data,loading:false})});
     await updateProducts(product.pro_id,name,description,iva,cost,pvp,status);
-    getProducts().then((arrayProducts) =>{
-        setProducts(arrayProducts);
-        setIsUpdate(true);
-    })
+    const arrayProducts = await getProducts();
+    setProducts({data:arrayProducts,loading:true});
+    setIsUpdate(true);
     setTimeout(() => {
         abrirCerrarModal();
     }, 600); 

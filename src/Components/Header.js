@@ -9,7 +9,7 @@ import '../css/style.css';
 
 export const Header = () => {
   return (
-    <nav className="navbar navbar-expand-lg">
+    <nav className="navbar navbar-expand-lg" >
       <a className="navbar-brand" href="index.html">
         <img src={logo_02} alt="Logo" />
       </a>
