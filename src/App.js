@@ -5,7 +5,7 @@ import { Header } from "./Components/Header";
 import { Productos } from "./Components/Productos";
 import { Ajuste } from "./Components/Ajuste";
 import { Kardex } from "./Components/Kardex";
-
+import { Update } from "./Components/Update";
 function App() {
   return (
     <Router>
@@ -21,6 +21,9 @@ function App() {
           </Route>
           <Route path="/kardex">
             <Kardex />
+          </Route>
+          <Route path="/update">
+            <Update/>
           </Route>
           <Route path="/">
             <Home></Home>
