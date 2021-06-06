@@ -1,33 +1,21 @@
 import React from "react";
 import { getProducts } from "../helpers/getProducts";
 import { useEffect, useState } from "react";
-import { Card } from '@material-ui/core';
+import { ProductCard } from "./ProductCard";
+import { Box } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 
-const useStyles = makeStyles({
-    root: {
-      minWidth: 275,
-    },
-    bullet: {
-      display: 'inline-block',
-      margin: '0 2px',
-      transform: 'scale(0.8)',
-    },
-    title: {
-      fontSize: 14,
-    },
-    pos: {
-      marginBottom: 12,
-    },
-  });
   
+const useStyles = makeStyles(() => ({
+  
+    content: {
+      padding: 10,
+    },
+  }));
+
 
 export const Productos = () => {
-    const classes = useStyles();
+    const boxStyle = useStyles(); 
    const [products, setproducts] = useState([]);
    useEffect(() => {
        getProducts().then((arrayProducts) =>{
@@ -35,33 +23,11 @@ export const Productos = () => {
        })
    },[])
    
-   const bull = <span className={classes.bullet}>•</span>;
-  
+
   
   return (
-    <>
-    {/*   {products.map(res => (<li key={res.pro_id}>{res.pro_stock}</li>))} */}
-    <Card className={classes.root}>
-      <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Word of the Day
-        </Typography>
-        <Typography variant="h5" component="h2">
-          be{bull}nev{bull}o{bull}lent
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          adjective
-        </Typography>
-        <Typography variant="body2" component="p">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
-    </>
+    <Box className={boxStyle.content} display="flex" flexWrap="wrap" justifyContent="center"  > 
+      {products.map(res => (<ProductCard key={res.pro_id} product={res}></ProductCard>))}
+    </Box>
   );
 };
