@@ -21,6 +21,8 @@ const useStyles = makeStyles((theme)=>({
 export const Ajuste = () => {
     const classes = useStyles();
     const [open, setOpen]= React.useState(false);
+    const [detalleProductos,setDetalleProductos]=useState([]);
+    console.log(detalleProductos)
     const handleClickOpen = () => {
         setOpen(true);
       };
@@ -30,7 +32,7 @@ export const Ajuste = () => {
     return (
         <div> 
             <CabeceraAjuste></CabeceraAjuste>
-            <DetalleAjuste></DetalleAjuste>
+            <DetalleAjuste detalleProductos={detalleProductos} ></DetalleAjuste>
             <Fab className={classes.add} position= 'absolute' 
             bottom='theme.spacing(2)' right= 'theme.spacing(2)' 
              color='primary' aria-label='add'
@@ -38,9 +40,11 @@ export const Ajuste = () => {
             <AddIcon/>
             
             </Fab>
-            <VentanaProductos  open={open} onClose={handleClose}>
+            <VentanaProductos  open={open} setDetalleProductos={setDetalleProductos} onClose={handleClose}>
             </VentanaProductos>
             
+            
         </div>
+
     )
 }

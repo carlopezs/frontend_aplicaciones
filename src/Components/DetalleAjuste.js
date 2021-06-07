@@ -12,21 +12,18 @@ const useStyles = makeStyles(() => ({
     },
   }));
 
-function DetalleAjuste() {
+function DetalleAjuste( {detalleProductos}) {
     const boxStyle = useStyles(); 
-    const [products, setProducts] = useState([]);
+    
+    
     
 
-   useEffect(() => {
-       getProductsAjuste().then((arrayProducts) =>{
-           setProducts(arrayProducts);
-       })
-   },[])
+   
    
     return (
         <div >
             <Box className={boxStyle.content} display="flex" flexDirection="column" alignItems="center" flexWrap="wrap" justifyContent="center"  > 
-            {products.map(res => (<CardAjusteDetalle key={res.pro_id} product={res} setProducts={setProducts} ></CardAjusteDetalle>))}
+            {detalleProductos.map(res => (<CardAjusteDetalle key={res.pro_id} product={res}  ></CardAjusteDetalle>))}
             </Box>
         </div>
     )

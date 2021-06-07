@@ -21,12 +21,22 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const ProductAjusCard = ({ product, setProducts }) => {
+
+
+
+
+export const ProductAjusCard = ({ product, setDetalleProductos }) => {
   const styles = useStyles();
   const iconBtnStyles = useSizedIconButtonStyles({ padding: 6 });
   const avatarStyles = useDynamicAvatarStyles({ radius: 12, size: 48 });
+
+  const addDetails = ()=>{
+    setDetalleProductos(res=>{
+      return[product,...res]
+    })
+  };
   return (
-    <Row p={1.5} gap={2} bgcolor={'#f5f5f5'} borderRadius={16}>
+    <Row marginBottom={1} p={1.5} gap={2} bgcolor={'#E5EBEC'} borderRadius={16}>
       <Item>
         <Avatar
           classes={avatarStyles}
@@ -39,9 +49,10 @@ export const ProductAjusCard = ({ product, setProducts }) => {
         <InfoTitle>{product.pro_nombre}{" "}</InfoTitle>
         <InfoSubtitle>{product.pro_stock}{" "}</InfoSubtitle>
       </Info>
-      <Item ml={1} position={'middle'}>
-        <IconButton className={styles.action} classes={iconBtnStyles}>
+      <Item ml={1} position={'middle'}  style={{marginLeft:'auto'}} >
+        <IconButton className={styles.action} classes={iconBtnStyles}  onClick={addDetails} >
           <Add />
+          
         </IconButton>
       </Item>
     </Row>

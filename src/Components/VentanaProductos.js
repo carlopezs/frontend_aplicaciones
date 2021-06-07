@@ -23,7 +23,7 @@ import { getProductsAjuste } from "../helpers/Products";
 
 
 export default function VentanaProductos(props) {
-    const { onClose, selectedValue, open } = props;
+    const { onClose, selectedValue, open, setDetalleProductos} = props;
   
     const handleClose = () => {
       onClose(selectedValue);
@@ -47,7 +47,7 @@ export default function VentanaProductos(props) {
         </DialogTitle>
         <DialogContent>
              
-             {products.map(res => (<ProductAjusCard key={res.pro_id} product={res} setProducts={setProducts}></ProductAjusCard>))}
+             {products.map(res => (<ProductAjusCard key={res.pro_id} product={res} setDetalleProductos={setDetalleProductos} setProducts={setProducts}></ProductAjusCard>))}
            
         </DialogContent>
     </Dialog>
