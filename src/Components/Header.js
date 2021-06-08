@@ -39,7 +39,7 @@ export const Header = () => {
               <Link className="page-scroll" to="/productos"> Productos</Link>
           </li>
           <li className="nav-item">
-              <Link className="page-scroll" to="/ajuste"> Ajustes</Link>
+              <Link className="page-scroll" to="/cabecera"> Ajustes</Link>
           </li>
           <li className="nav-item">
               <Link className="page-scroll" to="/kardex"> Kardex</Link>
