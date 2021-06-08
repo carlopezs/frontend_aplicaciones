@@ -10,6 +10,8 @@ import { useTutorInfoStyles } from '@mui-treasury/styles/info/tutor';
 import { useSizedIconButtonStyles } from '@mui-treasury/styles/iconButton/sized';
 import { useDynamicAvatarStyles } from '@mui-treasury/styles/avatar/dynamic';
 import Button from "@material-ui/core/Button";
+import TextField from '@material-ui/core/TextField';
+
 
 const useStyles = makeStyles(() => ({
   action: {
@@ -45,9 +47,14 @@ export const CardAjusteDetalle = ({ product, setProducts }) => {
       </Info>
       <Item ml={1} position={'middle'}  style={{marginLeft:'auto'}}  >
        
-        <IconButton className={styles.action} classes={iconBtnStyles} >
-          <Add />
-        </IconButton>
+      <TextField
+          id="standard-number"
+          label="Cantidad"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
        
       </Item>
       

@@ -36,8 +36,8 @@ function Home() {
                         <div className="row align-items-center justify-content-center justify-content-lg-between">
                             <div className="col-lg-6 col-md-10">
                                 <div className="header-hero-content">
-                                    <h3 className="header-title wow fadeInLeftBig" data-wow-duration="1.3s" data-wow-delay="0.2s"><span>Bienvenido</span> <br/>Modulo Inventario</h3>
-                                    <p className="text wow fadeInLeftBig" data-wow-duration="1.3s" data-wow-delay="0.6s">Modulo para manejar el inventario</p>
+                                    <h3 className="header-title wow fadeInLeftBig" data-wow-duration="1.3s" data-wow-delay="0.2s"><span>Bienvenido</span> <br/>Módulo Inventario</h3>
+                                    <p className="text wow fadeInLeftBig" data-wow-duration="1.3s" data-wow-delay="0.6s">Módulo para manejar el inventario</p>
                                     <ul className="d-flex">
                                         <li><a href="https://rebrand.ly/appland-ud" rel="nofollow" className="main-btn wow fadeInLeftBig" data-wow-duration="1.3s" data-wow-delay="0.8s">Purchase Now</a></li>
                                     </ul>

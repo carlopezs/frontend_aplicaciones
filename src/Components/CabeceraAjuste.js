@@ -12,6 +12,7 @@ import { useCoverCardMediaStyles } from '@mui-treasury/styles/cardMedia/cover';
 import { Row, Item } from '@mui-treasury/components/flex';
 import Fondo_Ajuste_02 from '../images/Fondo_Ajuste_04.jpg';
 import Icono_Ajuste_01 from '../images/Icono_Ajuste.png';
+import TextField from '@material-ui/core/TextField';
 
 const useGridStyles = makeStyles(({ breakpoints }) => ({
   root: {
@@ -28,7 +29,7 @@ const useGridStyles = makeStyles(({ breakpoints }) => ({
 }));
 
 const useStyles = makeStyles(({ palette }) => ({
-  color: ({ color }: {color:string}) => ({
+  color: ({ color }: { color: string }) => ({
     '&:before': {
       backgroundColor: Color(color)
         .darken(0.3)
@@ -113,7 +114,9 @@ const useStyles = makeStyles(({ palette }) => ({
     padding: '0 0.5rem',
     borderRadius: 12,
   },
+
 }));
+
 
 const CustomCard = ({ styles, cover, logo, title, brand, date }) => {
   const mediaStyles = useCoverCardMediaStyles();
@@ -145,9 +148,12 @@ const CustomCard = ({ styles, cover, logo, title, brand, date }) => {
   );
 };
 
-export const CabeceraAjuste = ({ }) => {
+export const CabeceraAjuste = ({ setCabDescripcion}) => {
   const styles1 = useStyles({ color: '#fc7944' });
   const styles2 = useStyles({ color: '#5357ce' });
+  
+ 
+  
   const gridStyles = useGridStyles();
   return (
     <>
@@ -170,19 +176,24 @@ export const CabeceraAjuste = ({ }) => {
             brand={'League of Legends Official'}
             date={'02.04.2020'}
             cover={
-              /* 'https://www.pcclean.io/wp-content/uploads/2019/04/559308.jpg' */
               Fondo_Ajuste_02
             }
             logo={
               Icono_Ajuste_01
-              /* 'https://vignette.wikia.nocookie.net/youtube/images/7/77/LeagueOfLegends.jpg/revision/latest?cb=20180718040905' */
             }
             title={
               <>
                 AJUS-001
                 <br />
-
-                <br />
+                <TextField 
+                   onChange={(e)=>{setCabDescripcion(e.target.value)}}
+                  required
+                  id="filled-required"
+                  label="Descripción"
+                  defaultValue=" "
+                  variant="filled"
+                />
+                
               </>
             }
           />
