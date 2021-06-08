@@ -5,6 +5,7 @@ import { Header } from "./Components/Header";
 import { Productos } from "./Components/Productos";
 import { Cabeceras } from "./Components/Cabeceras";
 import { Kardex } from "./Components/Kardex";
+import {Ajuste} from './Components/Ajuste'
 import { Update } from "./Components/Update";
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
           </Route>
           <Route path="/kardex">
             <Kardex />
+          </Route>
+          <Route path="/ajuste">
+            <Ajuste />
           </Route>
           <Route path="/update">
             <Update/>

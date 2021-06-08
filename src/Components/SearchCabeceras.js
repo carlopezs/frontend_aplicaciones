@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
   },
   textField: {
-    width: "80%",
+    width: "850px",
   },
 }));
 export const SearchCabeceras = ({ setCabeceras, cabecera }) => {
