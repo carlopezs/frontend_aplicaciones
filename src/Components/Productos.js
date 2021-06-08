@@ -23,7 +23,6 @@ export const Productos = () => {
     });
   }, []);
 
-  console.log(products);
 
   return (
     <>

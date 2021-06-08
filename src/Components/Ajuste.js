@@ -27,7 +27,6 @@ export const Ajuste = () => {
     const [open, setOpen] = React.useState(false);
     const [detalleProductos, setDetalleProductos] = useState([]);
     const [cabDescripcion,setCabDescripcion]=useState([]);
-    console.log(detalleProductos)
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -37,15 +36,7 @@ export const Ajuste = () => {
 
     const insertCabeceraFuncion= async ()=>{
         
-        /* setProducts((productos)=>{return({data:productos.data,loading:false})}); */
         await insertCabecera(cabDescripcion); 
-       /*  const arrayProducts = await getProducts();
-        setProducts(arrayProducts);
-        setIsInsert(true); */
-        /* setTimeout(() => {
-            abrirCerrarModal();
-        }, 600);  */
-        console.log('J')
     }
     return (
         <div>

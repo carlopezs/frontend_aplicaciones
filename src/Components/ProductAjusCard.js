@@ -47,7 +47,7 @@ export const ProductAjusCard = ({ product, setDetalleProductos }) => {
       </Item>
       <Info position={'middle'} useStyles={useTutorInfoStyles}>
         <InfoTitle>{product.pro_nombre}{" "}</InfoTitle>
-        <InfoSubtitle>{product.pro_stock}{" "}</InfoSubtitle>
+        <InfoSubtitle>{product.pro_stock} en stock</InfoSubtitle>
       </Info>
       <Item ml={1} position={'middle'}  style={{marginLeft:'auto'}} >
         <IconButton className={styles.action} classes={iconBtnStyles}  onClick={addDetails} >
