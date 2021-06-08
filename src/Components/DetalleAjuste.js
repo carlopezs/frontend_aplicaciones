@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles(() => ({
-  
     content: {
       paddingLeft: 0,
     },
@@ -14,12 +13,6 @@ const useStyles = makeStyles(() => ({
 
 function DetalleAjuste( {detalleProductos}) {
     const boxStyle = useStyles(); 
-    
-    
-    
-
-   
-   
     return (
         <div >
             <Box className={boxStyle.content} display="flex" flexDirection="column" alignItems="center" flexWrap="wrap" justifyContent="center"  > 
