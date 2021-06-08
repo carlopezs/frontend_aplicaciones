@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Components/Home";
 import { Header } from "./Components/Header";
 import { Productos } from "./Components/Productos";
-import { Ajuste } from "./Components/Ajuste";
+import { Cabeceras } from "./Components/Cabeceras";
 import { Kardex } from "./Components/Kardex";
+import {Ajuste} from './Components/Ajuste'
 import { Update } from "./Components/Update";
 function App() {
   return (
@@ -16,11 +17,14 @@ function App() {
           <Route path="/productos">
             <Productos />
           </Route>
-          <Route path="/ajuste">
-            <Ajuste />
+          <Route path="/cabecera">
+            <Cabeceras />
           </Route>
           <Route path="/kardex">
             <Kardex />
+          </Route>
+          <Route path="/ajuste">
+            <Ajuste />
           </Route>
           <Route path="/update">
             <Update/>
