@@ -7,6 +7,8 @@ import VentanaProductos from './VentanaProductos';
 import CabeceraAjuste from './CabeceraAjuste';
 import DetalleAjuste from './DetalleAjuste';
 import { insertCabecera } from "../helpers/Ajustes";
+import { insertDetalle  } from "../helpers/Ajustes";
+import { updateProducts, updateProductsConStock } from "../helpers/Products";
 
 const useStyles = makeStyles((theme) => ({
     add: {
@@ -27,6 +29,8 @@ export const Ajuste = () => {
     const [open, setOpen] = React.useState(false);
     const [detalleProductos, setDetalleProductos] = useState([]);
     const [cabDescripcion,setCabDescripcion]=useState([]);
+    const [detCantidad,setDetCantidad]=useState(0);
+   
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -39,25 +43,30 @@ export const Ajuste = () => {
         const objectCabecera =await insertCabecera(cabDescripcion);
         const idCabecera= objectCabecera.body.cabecera.idCabecera;
         console.log(idCabecera);
+        let stockactualizado
+        detalleProductos.map(res => {
+            console.log(detCantidad)
+            insertDetalle(detCantidad,idCabecera,res.pro_id,res.pro_id)
+            console.log("res",res.pro_stock)
+            stockactualizado=res.pro_stock+parseInt(detCantidad)
+            
+            console.log(stockactualizado)
+            updateProductsConStock(res.pro_id,res.pro_nombre,res.pro_descripcion,
+                res.pro_iva,res.pro_costo,res.pro_pvp,res.pro_activo,stockactualizado)
+        });
+
+         
+        console.log(idCabecera);
     }
 
-    /* const insertDetalleAjuste= async ()=>{
-         setProducts((productos)=>{return({data:productos.data,loading:false})}); 
-        await insertProduct(name,description,iva,cost,pvp,status, stock);
-        const arrayProducts = await getProducts();
-        setProducts(arrayProducts);
-        setIsInsert(true);
-        setTimeout(() => {
-            abrirCerrarModal();
-        }, 600); 
-      } */
+    
     
 
 
-    return (
+    return ( 
         <div>
             <CabeceraAjuste setCabDescripcion={setCabDescripcion}></CabeceraAjuste>
-            <DetalleAjuste detalleProductos={detalleProductos} ></DetalleAjuste>
+            <DetalleAjuste detalleProductos={detalleProductos}  setDetCantidad={setDetCantidad}></DetalleAjuste>
 
             <Fab className={classes.add} position='absolute'
                 bottom='theme.spacing(2)' right='theme.spacing(2)'

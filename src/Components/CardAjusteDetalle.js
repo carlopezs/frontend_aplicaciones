@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
  
 }));
 
-export const CardAjusteDetalle = ({ product, setProducts }) => {
+export const CardAjusteDetalle = ({ product, setProducts , setDetCantidad}) => {
   const styles = useStyles();
   const iconBtnStyles = useSizedIconButtonStyles({ padding: 6 });
   const avatarStyles = useDynamicAvatarStyles({ radius: 12, size: 48 });
@@ -48,6 +48,7 @@ export const CardAjusteDetalle = ({ product, setProducts }) => {
       <Item ml={1} position={'middle'}  style={{marginLeft:'auto'}}  >
        
       <TextField
+          onChange={(e)=>{setDetCantidad(e.target.value)}}
           id="standard-number"
           label="Cantidad"
           type="number"
