@@ -11,12 +11,12 @@ const useStyles = makeStyles(() => ({
     },
   }));
 
-function DetalleAjuste( {detalleProductos}) {
+function DetalleAjuste( {detalleProductos , setDetCantidad}) {
     const boxStyle = useStyles(); 
     return (
         <div >
             <Box className={boxStyle.content} display="flex" flexDirection="column" alignItems="center" flexWrap="wrap" justifyContent="center"  > 
-            {detalleProductos.map(res => (<CardAjusteDetalle key={res.pro_id} product={res}  ></CardAjusteDetalle>))}
+            {detalleProductos.map(res => (<CardAjusteDetalle key={res.pro_id} product={res}  setDetCantidad={setDetCantidad} ></CardAjusteDetalle>))}
             </Box>
         </div>
     )
