@@ -1,5 +1,5 @@
 import React from "react";
-import { getCabecerasWithOutImp } from "../helpers/Cabeceras";
+import { getCabecerasWithOutImp } from "../helpers/Ajustes";
 import { useEffect, useState } from "react";
 import { CabeceraCard } from "./CabeceraCard";
 import { Box } from "@material-ui/core";
