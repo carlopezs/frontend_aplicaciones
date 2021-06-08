@@ -114,7 +114,9 @@ const useStyles = makeStyles(({ palette }) => ({
     padding: '0 0.5rem',
     borderRadius: 12,
   },
+
 }));
+
 
 const CustomCard = ({ styles, cover, logo, title, brand, date }) => {
   const mediaStyles = useCoverCardMediaStyles();
@@ -146,9 +148,12 @@ const CustomCard = ({ styles, cover, logo, title, brand, date }) => {
   );
 };
 
-export const CabeceraAjuste = ({ }) => {
+export const CabeceraAjuste = ({ setCabDescripcion}) => {
   const styles1 = useStyles({ color: '#fc7944' });
   const styles2 = useStyles({ color: '#5357ce' });
+  
+ 
+  
   const gridStyles = useGridStyles();
   return (
     <>
@@ -180,11 +185,12 @@ export const CabeceraAjuste = ({ }) => {
               <>
                 AJUS-001
                 <br />
-                <TextField
+                <TextField 
+                   onChange={(e)=>{setCabDescripcion(e.target.value)}}
                   required
                   id="filled-required"
-                  label="Descripcióm"
-                  defaultValue="Hello World"
+                  label="Descripción"
+                  defaultValue=" "
                   variant="filled"
                 />
                 
