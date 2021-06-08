@@ -57,10 +57,10 @@ export const VentanaInsertar = ({ modal, setModal, setProducts,insert }) => {
 
   const insertProductos= async (e)=>{
     e.preventDefault();
-    /* setProducts((productos)=>{return({data:productos.data,loading:false})}); */
+    setProducts((productos)=>{return({data:productos.data,loading:false})});
     await insertProduct(name,description,iva,cost,pvp,status, stock);
     const arrayProducts = await getProducts();
-    setProducts(arrayProducts);
+    setProducts({ data: arrayProducts, loading: true });
     setIsInsert(true);
     setTimeout(() => {
         abrirCerrarModal();

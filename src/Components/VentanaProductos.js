@@ -4,6 +4,7 @@ import { ProductAjusCard } from "./ProductAjusCard";
 import { getProductsAjuste } from "../helpers/Products";
 import { VentanaInsertar } from "./Insert.js";
 import { Box } from "@material-ui/core";
+import {SearchProducts} from './SearchProducts';
 
 /* export default function VentanaProductos(props){
     
@@ -31,11 +32,12 @@ export default function VentanaProductos(props, product) {
     onClose(selectedValue);
   };
 
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState({ data: [], loading: false });
+
 
   useEffect(() => {
     getProductsAjuste().then((arrayProducts) => {
-      setProducts(arrayProducts);
+      setProducts({ data: arrayProducts, loading: true });
     });
   }, []);
 
@@ -53,10 +55,19 @@ export default function VentanaProductos(props, product) {
             Insertar
           </Button>
         </Box>
+        <Box display="flex" alignItems="center" justifyContent="center">
+        {products.loading && (
+        <SearchProducts
+          setProducts={setProducts}
+          products={products}
+        ></SearchProducts>
+      
+      )}
+       </Box>
       </DialogTitle>
 
       <DialogContent>
-        {products.map((res) => (
+        {products.data.map((res) => (
           <ProductAjusCard
             key={res.pro_id}
             product={res}

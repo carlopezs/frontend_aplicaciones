@@ -6,7 +6,7 @@ import { makeStyles, StylesProvider } from '@material-ui/core/styles';
 import VentanaProductos from './VentanaProductos';
 import CabeceraAjuste from './CabeceraAjuste';
 import DetalleAjuste from './DetalleAjuste';
-import { insertCabecera } from "../helpers/Products";
+import { insertCabecera } from "../helpers/Ajustes";
 
 const useStyles = makeStyles((theme) => ({
     add: {
@@ -36,8 +36,24 @@ export const Ajuste = () => {
 
     const insertCabeceraFuncion= async ()=>{
         
-        await insertCabecera(cabDescripcion); 
+        const objectCabecera =await insertCabecera(cabDescripcion);
+        const idCabecera= objectCabecera.body.cabecera.idCabecera;
+        console.log(idCabecera);
     }
+
+    /* const insertDetalleAjuste= async ()=>{
+         setProducts((productos)=>{return({data:productos.data,loading:false})}); 
+        await insertProduct(name,description,iva,cost,pvp,status, stock);
+        const arrayProducts = await getProducts();
+        setProducts(arrayProducts);
+        setIsInsert(true);
+        setTimeout(() => {
+            abrirCerrarModal();
+        }, 600); 
+      } */
+    
+
+
     return (
         <div>
             <CabeceraAjuste setCabDescripcion={setCabDescripcion}></CabeceraAjuste>

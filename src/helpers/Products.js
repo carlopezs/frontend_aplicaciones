@@ -28,27 +28,6 @@ export const insertProduct = async (pro_nombre, pro_descripcion, pro_iva, pro_co
                 &pro_stock=${pro_stock}`;
   const response = await fetch(url, { method: "POST" });
   const data = await response.json();
-  console.log(data)
-  return data;
-};
-
-export const insertCabecera = async (cab_descripcion) => {
-  const url = `https://proyecto-nosotros.herokuapp.com/ajustes/cab?cab_descripcion=${encodeURI(cab_descripcion)}
-              `;
-  const response = await fetch(url, { method: "POST" });
-  const data = await response.json();
-  console.log(data)
-  return data;
-};
-
-export const insertDetalle = async (pro_nombre, pro_descripcion, pro_iva, pro_costo, pro_pvp, pro_activo, pro_stock) => {
-  const url = `https://proyecto-nosotros.herokuapp.com/productos/?pro_nombre=${encodeURI(pro_nombre)}
-                &pro_descripcion=${encodeURI(pro_descripcion)}&pro_iva=${pro_iva}
-                &pro_costo=${pro_costo}&pro_pvp=${pro_pvp}&pro_activo=${pro_activo}
-                &pro_stock=${pro_stock}`;
-  const response = await fetch(url, { method: "POST" });
-  const data = await response.json();
-  console.log(data)
   return data;
 };
 

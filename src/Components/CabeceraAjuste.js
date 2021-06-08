@@ -1,122 +1,129 @@
-import React from 'react';
-import cx from 'clsx';
-import Color from 'color';
-import GoogleFontLoader from 'react-google-font-loader';
-import NoSsr from '@material-ui/core/NoSsr';
-import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import Box from '@material-ui/core/Box';
-import CardMedia from '@material-ui/core/CardMedia';
-import Grid from '@material-ui/core/Grid';
-import { useCoverCardMediaStyles } from '@mui-treasury/styles/cardMedia/cover';
-import { Row, Item } from '@mui-treasury/components/flex';
-import Fondo_Ajuste_02 from '../images/Fondo_Ajuste_04.jpg';
-import Icono_Ajuste_01 from '../images/Icono_Ajuste.png';
-import TextField from '@material-ui/core/TextField';
+import React from "react";
+import cx from "clsx";
+import Color from "color";
+import GoogleFontLoader from "react-google-font-loader";
+import NoSsr from "@material-ui/core/NoSsr";
+import { makeStyles } from "@material-ui/core/styles";
+import Avatar from "@material-ui/core/Avatar";
+import Box from "@material-ui/core/Box";
+import CardMedia from "@material-ui/core/CardMedia";
+import Grid from "@material-ui/core/Grid";
+import { useCoverCardMediaStyles } from "@mui-treasury/styles/cardMedia/cover";
+import { Row, Item } from "@mui-treasury/components/flex";
+import Fondo_Ajuste_02 from "../images/Fondo_Ajuste_04.jpg";
+import Icono_Ajuste_01 from "../images/Icono_Ajuste.png";
+import TextField from "@material-ui/core/TextField";
 
 const useGridStyles = makeStyles(({ breakpoints }) => ({
   root: {
-    overflow: 'auto',
-    [breakpoints.only('xs')]: {
-      '& > *:not(:first-child)': {
+    overflow: "auto",
+    [breakpoints.only("xs")]: {
+      "& > *:not(:first-child)": {
         paddingLeft: 0,
       },
     },
-    [breakpoints.up('sm')]: {
-      justifyContent: 'center',
+    [breakpoints.up("sm")]: {
+      justifyContent: "center",
     },
   },
 }));
 
 const useStyles = makeStyles(({ palette }) => ({
   color: ({ color }: { color: string }) => ({
-    '&:before': {
-      backgroundColor: Color(color)
-        .darken(0.3)
-        .desaturate(0.2)
-        .toString(),
+    "&:before": {
+      backgroundColor: Color(color).darken(0.3).desaturate(0.2).toString(),
     },
   }),
+
   root: {
-    position: 'relative',
-    borderRadius: '1rem',
-    minWidth: 900, /*320 */
-    '&:before': {
-      transition: '0.2s',
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
+    position: "relative",
+    borderRadius: "1rem",
+    minWidth: 900 /*320 */,
+    "&:before": {
+      transition: "0.2s",
+      position: "absolute",
+      width: "100%",
+      height: "100%",
       content: '""',
-      display: 'block',
-      borderRadius: '1rem',
+      display: "block",
+      borderRadius: "1rem",
       zIndex: 0,
       bottom: 0,
     },
-    '&:hover': {
-      '&:before': {
+    "&:hover": {
+      "&:before": {
         bottom: -6,
       },
-      '& $logo': {
-        transform: 'scale(1.1)',
-        boxShadow: '0 6px 20px 0 rgba(0,0,0,0.38)',
+      "& $logo": {
+        transform: "scale(1.1)",
+        boxShadow: "0 6px 20px 0 rgba(0,0,0,0.38)",
       },
     },
   },
+
   cover: {
-    borderRadius: '1rem',
+    borderRadius: "1rem",
   },
+
   content: ({ color }: { color: string }) => ({
-    position: 'relative',
+    position: "relative",
     zIndex: 1,
-    borderRadius: '1rem',
+    borderRadius: "1rem",
     boxShadow: `0 6px 16px 0 ${Color(color).fade(0.5)}`,
-    '&:before': {
+    "&:before": {
       content: '""',
-      display: 'block',
-      position: 'absolute',
+      display: "block",
+      position: "absolute",
       left: 0,
       top: 0,
       zIndex: 0,
-      width: '100%',
-      height: '100%',
+      width: "100%",
+      height: "100%",
       clipPath:
-        'polygon(0% 100%, 0% 35%, 0.3% 33%, 1% 31%, 1.5% 30%, 2% 29%, 2.5% 28.4%, 3% 27.9%, 3.3% 27.6%, 5% 27%,95% 0%,100% 0%, 100% 100%)',
-      borderRadius: '1rem',
+        "polygon(0% 100%, 0% 35%, 0.3% 33%, 1% 31%, 1.5% 30%, 2% 29%, 2.5% 28.4%, 3% 27.9%, 3.3% 27.6%, 5% 27%,95% 0%,100% 0%, 100% 100%)",
+      borderRadius: "1rem",
       background: `linear-gradient(to top, ${color}, ${Color(color)
         .rotate(24)
         .lighten(0.12)})`,
     },
   }),
+
   title: {
-    fontFamily: 'Roboto',
-    fontSize: '1.25rem',
-    color: '#fff',
+    fontFamily: "Roboto",
+    fontSize: "1.25rem",
+    color: "#fff",
     margin: 0,
   },
+
   logo: {
-    transition: '0.3s',
+    transition: "0.3s",
     width: 100,
     height: 100,
-    boxShadow: '0 4px 12px 0 rgba(0,0,0,0.24)',
-    borderRadius: '1rem',
+    boxShadow: "0 4px 12px 0 rgba(0,0,0,0.24)",
+    borderRadius: "1rem",
   },
+
   team: {
-    fontFamily: 'Sen',
-    fontSize: '0.75rem',
+    fontFamily: "Sen",
+    fontSize: "0.75rem",
     color: palette.text.hint,
   },
+
   date: {
-    fontFamily: 'Fjalla One',
-    color: '#fff',
+    fontFamily: "Fjalla One",
+    color: "#fff",
     backgroundColor: palette.text.hint,
     opacity: 0.72,
-    fontSize: '2rem',
-    padding: '0 0.5rem',
+    fontSize: "2rem",
+    padding: "0 0.5rem",
     borderRadius: 12,
   },
 
+  textField: {
+    width: "800px",
+    color: "#ffff",
+  },
 }));
-
 
 const CustomCard = ({ styles, cover, logo, title, brand, date }) => {
   const mediaStyles = useCoverCardMediaStyles();
@@ -124,19 +131,18 @@ const CustomCard = ({ styles, cover, logo, title, brand, date }) => {
     <Box className={cx(styles.root, styles.color)} pt={20}>
       <CardMedia image={cover} className={styles.cover} classes={mediaStyles} />
       <Box className={styles.content} p={2}>
-        <Box position={'relative'} zIndex={1}>
+        <Box position={"relative"} zIndex={1}>
           <Row p={0} gap={2}>
             <Item>
               <Avatar className={styles.logo} src={logo} />
             </Item>
-            <Item position={'bottom'}>
+            <Item position={"bottom"}>
               <h2 className={styles.title}>{title}</h2>
             </Item>
           </Row>
-          <Row mt={4} alignItems={'center'}>
+          <Row mt={4} alignItems={"center"}>
             <Item>
               <div className={styles.date}>{date}</div>
-
             </Item>
             {/*   <Item position={'right'}>
             <div className={styles.team}>{brand}</div>
@@ -148,52 +154,52 @@ const CustomCard = ({ styles, cover, logo, title, brand, date }) => {
   );
 };
 
-export const CabeceraAjuste = ({ setCabDescripcion}) => {
-  const styles1 = useStyles({ color: '#fc7944' });
-  const styles2 = useStyles({ color: '#5357ce' });
-  
- 
-  
+export const CabeceraAjuste = ({ setCabDescripcion }) => {
+  const styles1 = useStyles({ color: "#fc7944" });
+  const styles2 = useStyles({ color: "#5357ce" });
+
   const gridStyles = useGridStyles();
   return (
     <>
       <NoSsr>
         <GoogleFontLoader
-          fonts={[{ font: 'Fjalla One' }, { font: 'Sen', weights: [500] }]}
+          fonts={[{ font: "Fjalla One" }, { font: "Sen", weights: [500] }]}
         />
       </NoSsr>
       <Grid
         style={{ padding: 16 }}
         classes={gridStyles}
-        wrap={'nowrap'}
+        wrap={"nowrap"}
         container
         spacing={4}
       >
-
         <Grid item>
           <CustomCard
             styles={styles2}
-            brand={'League of Legends Official'}
-            date={'02.04.2020'}
-            cover={
-              Fondo_Ajuste_02
-            }
-            logo={
-              Icono_Ajuste_01
-            }
+            brand={"League of Legends Official"}
+            date={"02.04.2020"}
+            cover={Fondo_Ajuste_02}
+            logo={Icono_Ajuste_01}
             title={
               <>
                 AJUS-001
                 <br />
-                <TextField 
-                   onChange={(e)=>{setCabDescripcion(e.target.value)}}
+                <TextField
+                  className={styles1.textField}
+                  onChange={(e) => {
+                    setCabDescripcion(e.target.value);
+                  }}
                   required
+                  color="ffff"
                   id="filled-required"
                   label="Descripción"
                   defaultValue=" "
                   variant="filled"
+                  InputProps={{
+                    className: styles1.textField,
+                  }}
+                  InputLabelProps={{ className: styles1.textField,}}
                 />
-                
               </>
             }
           />
