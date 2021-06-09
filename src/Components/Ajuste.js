@@ -27,9 +27,12 @@ const useStyles = makeStyles((theme) => ({
 export const Ajuste = () => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+
     const [detalleProductos, setDetalleProductos] = useState([]);
+
     const [cabDescripcion,setCabDescripcion]=useState([]);
-    const [detCantidad,setDetCantidad]=useState(0);
+
+    const [detCantidad,setDetCantidad]=useState([]);
    
     const handleClickOpen = () => {
         setOpen(true);
@@ -40,23 +43,15 @@ export const Ajuste = () => {
 
     const insertCabeceraFuncion= async ()=>{
         
-        const objectCabecera =await insertCabecera(cabDescripcion);
-        const idCabecera= objectCabecera.body.cabecera.idCabecera;
-        console.log(idCabecera);
-        let stockactualizado
-        detalleProductos.map(res => {
-            console.log(detCantidad)
-            insertDetalle(detCantidad,idCabecera,res.pro_id,res.pro_id)
-            console.log("res",res.pro_stock)
-            stockactualizado=res.pro_stock+parseInt(detCantidad)
-            
-            console.log(stockactualizado)
-            updateProductsConStock(res.pro_id,res.pro_nombre,res.pro_descripcion,
-                res.pro_iva,res.pro_costo,res.pro_pvp,res.pro_activo,stockactualizado)
-        });
-
-         
-        console.log(idCabecera);
+     const objectCabecera =await insertCabecera(cabDescripcion); 
+       const idCabecera= objectCabecera.body.cabecera.idCabecera;
+        let stockactualizado 
+        detCantidad.map(res => {
+            insertDetalle(res.cantidad,idCabecera,res.product.pro_id,res.product.pro_id)
+            stockactualizado=res.product.pro_stock+parseInt(res.cantidad)
+            updateProductsConStock(res.product.pro_id,res.product.pro_nombre,res.product.pro_descripcion,
+                res.product.pro_iva,res.product.pro_costo,res.product.pro_pvp,res.product.pro_activo,stockactualizado)
+        }); 
     }
 
     

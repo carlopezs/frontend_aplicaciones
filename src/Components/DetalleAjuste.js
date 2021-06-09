@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import CardAjusteDetalle from './CardAjusteDetalle';
-import { getProductsAjuste } from "../helpers/Products";
 import { Box } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -16,7 +15,7 @@ function DetalleAjuste( {detalleProductos , setDetCantidad}) {
     return (
         <div >
             <Box className={boxStyle.content} display="flex" flexDirection="column" alignItems="center" flexWrap="wrap" justifyContent="center"  > 
-            {detalleProductos.map(res => (<CardAjusteDetalle key={res.pro_id} product={res}  setDetCantidad={setDetCantidad} ></CardAjusteDetalle>))}
+            {detalleProductos.map(res => (<CardAjusteDetalle key={res.pro_id}  product={res}  setDetCantidad={setDetCantidad} ></CardAjusteDetalle>))}
             </Box>
         </div>
     )
