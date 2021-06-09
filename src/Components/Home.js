@@ -39,7 +39,7 @@ function Home() {
                                     <h3 className="header-title wow fadeInLeftBig" data-wow-duration="1.3s" data-wow-delay="0.2s"><span>Bienvenido</span> <br/>Módulo Inventario</h3>
                                     <p className="text wow fadeInLeftBig" data-wow-duration="1.3s" data-wow-delay="0.6s">Módulo para manejar el inventario</p>
                                     <ul className="d-flex">
-                                        <li><a href="https://rebrand.ly/appland-ud" rel="nofollow" className="main-btn wow fadeInLeftBig" data-wow-duration="1.3s" data-wow-delay="0.8s">Purchase Now</a></li>
+                                        <li><a href="https://www.youtube.com/watch?v=KsdC2TL9TNU" rel="nofollow" className="main-btn wow fadeInLeftBig" data-wow-duration="1.3s" data-wow-delay="0.8s">Nosotros</a></li>
                                     </ul>
                                 </div> 
                             </div>

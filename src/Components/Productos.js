@@ -13,6 +13,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+
 export const Productos = () => {
   const boxStyle = useStyles();
   const [products, setProducts] = useState({ data: [], loading: false });
@@ -22,6 +23,8 @@ export const Productos = () => {
       setProducts({ data: arrayProducts, loading: true });
     });
   }, []);
+
+
 
 
   return (
