@@ -4,6 +4,12 @@ export const getCabecerasWithOutImp = async () => {
   const data = await response.json();
   return data;
 };
+export const getCabecerasNumeroID = async () => {
+  const url = "https://proyecto-nosotros.herokuapp.com/ajustes/id";
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
+};
 
 
 export const insertCabecera = async (cab_descripcion) => {

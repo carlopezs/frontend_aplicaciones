@@ -68,7 +68,7 @@ export const CardAjusteDetalle = ({ product, setDetCantidad }) => {
       </Item>
       <Info position={"middle"} useStyles={useTutorInfoStyles}>
         <InfoTitle>{product.pro_nombre} </InfoTitle>
-        <InfoSubtitle>{product.pro_stock} </InfoSubtitle>
+        
       </Info>
       <Item ml={1} position={"middle"} style={{ marginLeft: "auto" }}>
         <TextField

@@ -13,6 +13,8 @@ import { Row, Item } from "@mui-treasury/components/flex";
 import Fondo_Ajuste_02 from "../images/Fondo_Ajuste_04.jpg";
 import Icono_Ajuste_01 from "../images/Icono_Ajuste.png";
 import TextField from "@material-ui/core/TextField";
+import {getCabecerasNumeroID} from "../helpers/Ajustes";
+import { useEffect, useState } from "react";
 
 const useGridStyles = makeStyles(({ breakpoints }) => ({
   root: {
@@ -125,7 +127,17 @@ const useStyles = makeStyles(({ palette }) => ({
   },
 }));
 
+
+
+
+
+
+
+
+ 
+
 const CustomCard = ({ styles, cover, logo, title, brand, date }) => {
+  
   const mediaStyles = useCoverCardMediaStyles();
   return (
     <Box className={cx(styles.root, styles.color)} pt={20}>
@@ -159,6 +171,21 @@ export const CabeceraAjuste = ({ setCabDescripcion }) => {
   const styles2 = useStyles({ color: "#5357ce" });
 
   const gridStyles = useGridStyles();
+
+  const [cabeceranum, setCabeceraNumero] = useState("");
+ 
+  const numeroCabecera = async()=>{
+    setCabeceraNumero( await getCabecerasNumeroID())
+   console.log(cabeceranum)
+  };
+  
+  useEffect(() => {
+    numeroCabecera()
+  }, []);
+
+  const FechaHoy=new Date();
+  
+
   return (
     <>
       <NoSsr>
@@ -177,12 +204,13 @@ export const CabeceraAjuste = ({ setCabDescripcion }) => {
           <CustomCard
             styles={styles2}
             brand={"League of Legends Official"}
-            date={"02.04.2020"}
+            date={FechaHoy.toLocaleDateString()}
             cover={Fondo_Ajuste_02}
             logo={Icono_Ajuste_01}
             title={
               <>
-                AJUS-001
+                 
+                {cabeceranum}
                 <br />
                 <TextField
                   className={styles1.textField}
