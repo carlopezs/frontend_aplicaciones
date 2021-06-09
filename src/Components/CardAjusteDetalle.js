@@ -11,6 +11,7 @@ import { useSizedIconButtonStyles } from "@mui-treasury/styles/iconButton/sized"
 import { useDynamicAvatarStyles } from "@mui-treasury/styles/avatar/dynamic";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles(() => ({
   action: {
@@ -21,10 +22,14 @@ const useStyles = makeStyles(() => ({
       color: "#000",
     },
   },
+  card:{
+    width:'72%'
+  }
 }));
 
-export const CardAjusteDetalle = ({ product, setDetCantidad }) => {
+export const CardAjusteDetalle = ({ product, setDetCantidad,setDetalleProductos }) => {
   const avatarStyles = useDynamicAvatarStyles({ radius: 12, size: 48 });
+  const styles = useStyles();
 
   const changeCantidad = (e) => {
     const cantidad = e.target.value;
@@ -54,6 +59,17 @@ export const CardAjusteDetalle = ({ product, setDetCantidad }) => {
    
   }
 
+  const deleteDetail = () =>{
+    setDetalleProductos(detalleProductos =>{
+      const detProducto = detalleProductos.filter(element => element.pro_id !== product.pro_id)
+      return detProducto;
+    })
+    setDetCantidad(detalleCantidad =>{
+      const detCantidad = detalleCantidad.filter(element => element.product.pro_id !== product.pro_id)
+      return detCantidad;
+    })
+  }
+
   return (
     <Row
       marginBottom={1}
@@ -62,13 +78,16 @@ export const CardAjusteDetalle = ({ product, setDetCantidad }) => {
       bgcolor={"#E5EBEC"}
       borderRadius={16}
       width={400}
+      className={styles.card}
     >
       <Item>
         <Avatar classes={avatarStyles} src={carrito} />
       </Item>
       <Info position={"middle"} useStyles={useTutorInfoStyles}>
         <InfoTitle>{product.pro_nombre} </InfoTitle>
-        <InfoSubtitle>{product.pro_stock} </InfoSubtitle>
+        <InfoSubtitle>Stock: {product.pro_stock}</InfoSubtitle>
+        <InfoSubtitle>PVP: ${product.pro_pvp}</InfoSubtitle>
+        <InfoSubtitle>Iva: {product.pro_iva?'Si':'No'}</InfoSubtitle>
       </Info>
       <Item ml={1} position={"middle"} style={{ marginLeft: "auto" }}>
         <TextField
@@ -80,6 +99,9 @@ export const CardAjusteDetalle = ({ product, setDetCantidad }) => {
             shrink: true,
           }}
         />
+      </Item>
+      <Item ml={1} position={"middle"} >
+        <DeleteIcon onClick={deleteDetail} color="secondary"></DeleteIcon>
       </Item>
     </Row>
   );
