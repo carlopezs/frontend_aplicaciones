@@ -58,7 +58,7 @@ export const VentanaInsertar = ({ modal, setModal, setProducts,insert }) => {
   const insertProductos= async (e)=>{
     e.preventDefault();
     setProducts((productos)=>{return({data:productos.data,loading:false})});
-    await insertProduct(name,description,iva,cost,pvp,status, stock);
+    await insertProduct(name,description,iva,cost,pvp,status, 0);
     const arrayProducts = await getProducts();
     setProducts({ data: arrayProducts, loading: true });
     setIsInsert(true);
@@ -96,9 +96,9 @@ export const VentanaInsertar = ({ modal, setModal, setProducts,insert }) => {
         <MenuItem value={false}>Inactivo</MenuItem>
       </Select>
       </FormControl>
-      <br />
+      {/* <br />
       <TextField value={stock}  onChange={(e)=>{setStock(e.target.value)}} type="number" label="Stock" className={styles.textField} />
-      <br />
+      <br /> */}
       <br /> <br />
       <div align="right">
         <Button type="submit" onClick={insertProductos}>Insertar</Button>
