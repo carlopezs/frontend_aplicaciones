@@ -37,17 +37,8 @@ export const Productos = () => {
   return (
     <>
     <DialogTitle>
-    <Button
-            onClick={abrirCerrarModal}
-            size="large"
-            variant="contained"
-            color="primary"
-          >
-            Insertar
-          </Button>
+   
         
-        <Box display="flex" alignItems="center" justifyContent="center">
-        </Box>
         <VentanaInsertar
         setProducts={setProducts}
         modal={modal}
@@ -55,6 +46,9 @@ export const Productos = () => {
         insert={false}
       ></VentanaInsertar>
     </DialogTitle>
+    <Box display="flex"  justifyContent="center">
+
+        
       {products.loading && (
         <SearchProducts
           setProducts={setProducts}
@@ -62,6 +56,17 @@ export const Productos = () => {
         ></SearchProducts>
         
       )}
+
+          <Button
+            onClick={abrirCerrarModal}
+            size="large"
+            variant="contained"
+            color="primary"
+          >
+            Insertar
+          </Button>
+    </Box>
+     
       
       {products.data.length !== 0 && (
         <Box

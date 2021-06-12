@@ -21,8 +21,8 @@ import {SearchProducts} from './SearchProducts';
     );
 }; */
 
-export default function VentanaProductos(props, product) {
-  const { onClose, selectedValue, open, setDetalleProductos } = props;
+export default function VentanaProductos(props) {
+  const { onClose, selectedValue, open, setDetalleProductos, setDetCantidad } = props;
   const [modal, setModal] = useState(false);
 
   const abrirCerrarModal = () => {
@@ -73,6 +73,7 @@ export default function VentanaProductos(props, product) {
             product={res}
             setDetalleProductos={setDetalleProductos}
             setProducts={setProducts}
+            setDetCantidad={setDetCantidad}
           ></ProductAjusCard>
         ))}
       </DialogContent>

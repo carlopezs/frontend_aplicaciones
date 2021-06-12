@@ -5,11 +5,10 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
   containerSearch: {
-    display: "flex",
-    justifyContent: "center",
+   width:"80%"
   },
   textField: {
-    width: "80%",
+    width: "100%",
   },
 }));
 export const SearchProducts = ({ setProducts, products }) => {

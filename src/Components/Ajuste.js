@@ -36,13 +36,15 @@ export const Ajuste = () => {
 
   const [detalleProductos, setDetalleProductos] = useState([]);
 
-  const [cabDescripcion, setCabDescripcion] = useState([]);
+  const [cabDescripcion, setCabDescripcion] = useState('');
 
   const [detCantidad, setDetCantidad] = useState([]);
 
   const [ajusIngresado, setAjusIngresado] = useState(false);
 
-  const [noDetalles, setnoDetalles] = useState(false);
+  const [error, setError] = useState(false);
+
+  const [alertMsg, setAlertMsg] = useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -51,39 +53,55 @@ export const Ajuste = () => {
     setOpen(false);
   };
 
+  const showMessage = (message, state) => {
+    setAlertMsg(message);
+    state(true);
+    setTimeout(() => {
+      state(false);
+    }, 3000);
+  };
+
+  const validateProductCant = () => {
+    let noCant = {cant:false, nameProduct:null};
+  
+    detCantidad.map((res) => {
+      console.log(res.cantidad)
+      if (res.cantidad.length === 0) {
+        noCant = {cant:true, nameProduct:res.pro_nombre}
+        return;
+      }
+    });
+    return noCant;
+  };
+
   const insertCabeceraFuncion = async () => {
-    if (detCantidad.length !== 0) {
-      const objectCabecera = await insertCabecera(cabDescripcion);
-      const idCabecera = objectCabecera.body.cabecera.idCabecera;
-      let stockactualizado;
-      detCantidad.map((res) => {
-        stockactualizado = res.product.pro_stock + parseInt(res.cantidad);
-        insertDetalle(
-          res.cantidad,
-          idCabecera,
-          res.product.pro_id,
-          stockactualizado
-        );
-        updateProductsConStock(
-          res.product.pro_id,
-          res.product.pro_nombre,
-          res.product.pro_descripcion,
-          res.product.pro_iva,
-          res.product.pro_costo,
-          res.product.pro_pvp,
-          res.product.pro_activo,
-          stockactualizado
-        );
-      });
-      setAjusIngresado(true);
-      setTimeout(() => {
-        setAjusIngresado(false);
-      }, 1500);
+    if (cabDescripcion.length === 0) {
+      showMessage("Ingrese una descripción antes de guardar", setError);
     } else {
-      setnoDetalles(true);
-      setTimeout(() => {
-        setnoDetalles(false);
-      }, 1500);
+      if (detCantidad.length !== 0) {
+        const objectCabecera = await insertCabecera(cabDescripcion);
+        const idCabecera = objectCabecera.body.cabecera.idCabecera;
+        let stockactualizado;
+        if (validateProductCant().cant) {
+          showMessage(`El producto ${validateProductCant.nameProduct} no tiene cantidad asignada`, setError)
+        }
+        else{
+          detCantidad.map((res) => {
+            stockactualizado = res.product.pro_stock + parseInt(res.cantidad);
+            insertDetalle( res.cantidad, idCabecera, res.product.pro_id, stockactualizado);
+            updateProductsConStock( res.product.pro_id, res.product.pro_nombre, res.product.pro_descripcion,res.product.pro_iva,
+                                    res.product.pro_costo,res.product.pro_pvp, res.product.pro_activo,stockactualizado);
+          });
+          setCabDescripcion('');
+          setAjusIngresado(true);
+          setTimeout(() => {
+            setAjusIngresado(false);
+          }, 1500);
+        }
+        
+      } else {
+        showMessage("Verifique que haya productos en el ajuste", setError);
+      }
     }
   };
 
@@ -91,9 +109,8 @@ export const Ajuste = () => {
     <div>
       <CabeceraAjuste setCabDescripcion={setCabDescripcion}></CabeceraAjuste>
       <DetalleAjuste
-        setDetalleProductos={setDetalleProductos}
-        detalleProductos={detalleProductos}
         setDetCantidad={setDetCantidad}
+        detCantidad = {detCantidad}
       ></DetalleAjuste>
 
       <Fab
@@ -125,15 +142,16 @@ export const Ajuste = () => {
           Ajuste ingresado correctamente
         </Alert>
       )}
-      {noDetalles && (
-        <Alert variant="filled" severity="warning"className={classes.alert}>
-          Ingrese productos al ajuste antes de guardar
+      {error && (
+        <Alert variant="filled" severity="warning" className={classes.alert}>
+          {alertMsg}
         </Alert>
       )}
       <VentanaProductos
         open={open}
         className
         setDetalleProductos={setDetalleProductos}
+        setDetCantidad={setDetCantidad}
         onClose={handleClose}
       ></VentanaProductos>
     </div>

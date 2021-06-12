@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const CardAjusteDetalle = ({ product, setDetCantidad,setDetalleProductos }) => {
+export const CardAjusteDetalle = ({ product, setDetCantidad, cantidad }) => {
   const avatarStyles = useDynamicAvatarStyles({ radius: 12, size: 48 });
   const styles = useStyles();
 
@@ -60,10 +60,6 @@ export const CardAjusteDetalle = ({ product, setDetCantidad,setDetalleProductos 
   }
 
   const deleteDetail = () =>{
-    setDetalleProductos(detalleProductos =>{
-      const detProducto = detalleProductos.filter(element => element.pro_id !== product.pro_id)
-      return detProducto;
-    })
     setDetCantidad(detalleCantidad =>{
       const detCantidad = detalleCantidad.filter(element => element.product.pro_id !== product.pro_id)
       return detCantidad;
@@ -95,6 +91,7 @@ export const CardAjusteDetalle = ({ product, setDetCantidad,setDetalleProductos 
           id="standard-number"
           label="Cantidad"
           type="number"
+          defaultValue="0"
           InputLabelProps={{
             shrink: true,
           }}
