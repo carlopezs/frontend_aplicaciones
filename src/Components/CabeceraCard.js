@@ -1,6 +1,6 @@
 import React from "react";
 import cx from "clsx";
-import {  useRef } from "react";
+import { useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -13,7 +13,7 @@ import { useReactToPrint } from "react-to-print";
 import { Document } from "./Document";
 import Button from "@material-ui/core/Button";
 import { Box } from "@material-ui/core";
-
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -35,15 +35,13 @@ export const CabeceraCard = ({ cabecera }) => {
   const styles = useN03TextInfoContentStyles();
   const shadowStyles = useLightTopShadowStyles();
   const cardStyles = useStyles();
-
-
+  const boxStyle = useStyles();
 
   const documentRef = useRef();
 
   const handlePrint = useReactToPrint({
     content: () => documentRef.current,
   });
-
 
   return (
     <>
@@ -61,13 +59,12 @@ export const CabeceraCard = ({ cabecera }) => {
           <p>
             <strong>Impresión:</strong> {cabecera.cab_imp.toString()}{" "}
           </p>
-        </CardContent>
 
-        <div style={{ display: "none" }}>
-          <Document ref={documentRef}></Document>
-        </div>
+          <div style={{ display: "none" }}>
+            <Document ref={documentRef}></Document>
+          </div>
 
-        <Box
+          <Box
             className={cardStyles.containerButton}
             display="flex"
             flexWrap="wrap"
@@ -81,8 +78,15 @@ export const CabeceraCard = ({ cabecera }) => {
             >
               Imprimir
             </Button>
-          </Box>
 
+            <Button  className={boxStyle.button} size="large" variant="contained" color="primary">
+              <Link  to="/actualizarajuste">
+                {" "}
+                Actualizar Ajuste
+              </Link>
+            </Button>
+          </Box>
+        </CardContent>
       </Card>
     </>
   );

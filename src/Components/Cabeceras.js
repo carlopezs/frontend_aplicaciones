@@ -40,6 +40,7 @@ export const Cabeceras = () => {
             setCabeceras={setCabeceras}
             cabecera={cabecera}
           ></SearchCabeceras>
+          
         )}
         <Button size="large" variant="contained" color="primary">
            <Link className={boxStyle.button}  to="/ajuste"> Ingresar ajuste</Link>
@@ -57,7 +58,9 @@ export const Cabeceras = () => {
             cabecera={res}
             setCabeceras={setCabeceras}
           ></CabeceraCard>
+          
         ))}
+        
       </Box>
     </>
   );

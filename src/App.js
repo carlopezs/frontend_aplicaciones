@@ -7,6 +7,7 @@ import { Cabeceras } from "./Components/Cabeceras";
 import { Kardex } from "./Components/Kardex";
 import {Ajuste} from './Components/Ajuste'
 import { Update } from "./Components/Update";
+import {ActualizarAjuste} from "./Components/ActualizarAjuste";
 function App() {
   return (
     <Router>
@@ -28,6 +29,9 @@ function App() {
           </Route>
           <Route path="/update">
             <Update/>
+          </Route>
+          <Route path="/actualizarajuste">
+            <ActualizarAjuste />
           </Route>
           <Route path="/">
             <Home></Home>
