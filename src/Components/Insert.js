@@ -47,7 +47,6 @@ export const VentanaInsertar = ({ modal, setModal, setProducts, insert }) => {
   const [pvp, setPvp] = useState(0);
   const [iva, setIva] = useState(false);
   const [status, setStatus] = useState(false);
-  const [stock, setStock] = useState(0);
   const [error, setError] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
 
