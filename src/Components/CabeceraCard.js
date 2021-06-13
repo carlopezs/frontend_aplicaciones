@@ -1,6 +1,6 @@
 import React from "react";
 import cx from "clsx";
-import { useState } from "react";
+import {  useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -8,11 +8,11 @@ import BrandCardHeader from "@mui-treasury/components/cardHeader/brand";
 import TextInfoContent from "@mui-treasury/components/content/textInfo";
 import { useN03TextInfoContentStyles } from "@mui-treasury/styles/textInfoContent/n03";
 import { useLightTopShadowStyles } from "@mui-treasury/styles/shadow/lightTop";
-/* import Button from "@material-ui/core/Button"; */
 import ajuste from "../assets/ajuste.png";
-/* import { Box } from "@material-ui/core";
-import { Update } from "./Update"; */
-
+import { useReactToPrint } from "react-to-print";
+import { Document } from "./Document";
+import Button from "@material-ui/core/Button";
+import { Box } from "@material-ui/core";
 
 
 const useStyles = makeStyles(() => ({
@@ -31,16 +31,19 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const CabeceraCard = ({ cabecera, setCabeceras }) => {
+export const CabeceraCard = ({ cabecera }) => {
   const styles = useN03TextInfoContentStyles();
   const shadowStyles = useLightTopShadowStyles();
   const cardStyles = useStyles();
 
-  const [modal, setModal] = useState(false);
 
-  const abrirCerrarModal = () => {
-    setModal((modal) => !modal);
-  };
+
+  const documentRef = useRef();
+
+  const handlePrint = useReactToPrint({
+    content: () => documentRef.current,
+  });
+
 
   return (
     <>
@@ -50,7 +53,7 @@ export const CabeceraCard = ({ cabecera, setCabeceras }) => {
           <TextInfoContent
             classes={styles}
             overline={cabecera.cab_num}
-            heading={`${cabecera.cab_fecha.toString().split('T')[0]}`}
+            heading={`${cabecera.cab_fecha.toString().split("T")[0]}`}
           />
           <p>
             <strong>Descripción:</strong> {cabecera.cab_descripcion}{" "}
@@ -58,31 +61,29 @@ export const CabeceraCard = ({ cabecera, setCabeceras }) => {
           <p>
             <strong>Impresión:</strong> {cabecera.cab_imp.toString()}{" "}
           </p>
-          {/* <Box
+        </CardContent>
+
+        <div style={{ display: "none" }}>
+          <Document ref={documentRef}></Document>
+        </div>
+
+        <Box
             className={cardStyles.containerButton}
             display="flex"
             flexWrap="wrap"
             justifyContent="center"
           >
             <Button
-              onClick={abrirCerrarModal}
+              onClick={handlePrint}
               size="large"
               variant="contained"
               color="primary"
             >
-              Actualizar
+              Imprimir
             </Button>
-          </Box> */}
-        </CardContent>
-       
+          </Box>
+
       </Card>
-     {/*  <Update
-        setProducts={setProducts}
-        modal={modal}
-        setModal={setModal}
-        product={product}
-        update={false}
-      ></Update> */}
     </>
   );
 };
