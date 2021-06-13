@@ -8,10 +8,11 @@ import BrandCardHeader from "@mui-treasury/components/cardHeader/brand";
 import TextInfoContent from "@mui-treasury/components/content/textInfo";
 import { useN03TextInfoContentStyles } from "@mui-treasury/styles/textInfoContent/n03";
 import { useLightTopShadowStyles } from "@mui-treasury/styles/shadow/lightTop";
-/* import Button from "@material-ui/core/Button"; */
+import Button from "@material-ui/core/Button"; 
 import ajuste from "../assets/ajuste.png";
-/* import { Box } from "@material-ui/core";
-import { Update } from "./Update"; */
+import { Box } from "@material-ui/core";
+import { Update } from "./Update"; 
+import { Link } from "react-router-dom";
 
 
 
@@ -35,6 +36,7 @@ export const CabeceraCard = ({ cabecera, setCabeceras }) => {
   const styles = useN03TextInfoContentStyles();
   const shadowStyles = useLightTopShadowStyles();
   const cardStyles = useStyles();
+  const boxStyle = useStyles();
 
   const [modal, setModal] = useState(false);
 
@@ -58,21 +60,16 @@ export const CabeceraCard = ({ cabecera, setCabeceras }) => {
           <p>
             <strong>Impresión:</strong> {cabecera.cab_imp.toString()}{" "}
           </p>
-          {/* <Box
+          <Box
             className={cardStyles.containerButton}
             display="flex"
             flexWrap="wrap"
             justifyContent="center"
           >
-            <Button
-              onClick={abrirCerrarModal}
-              size="large"
-              variant="contained"
-              color="primary"
-            >
-              Actualizar
-            </Button>
-          </Box> */}
+            <Button size="large" variant="contained" color="primary">
+           <Link className={boxStyle.button}  to="/actualizarajuste"> Actualizar Ajuste</Link>
+        </Button>
+          </Box>
         </CardContent>
        
       </Card>
