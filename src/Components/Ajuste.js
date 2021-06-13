@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import NavigationIcon from "@material-ui/icons/Navigation";
-import { makeStyles, StylesProvider } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import VentanaProductos from "./VentanaProductos";
 import CabeceraAjuste from "./CabeceraAjuste";
 import DetalleAjuste from "./DetalleAjuste";
 import { insertCabecera } from "../helpers/Ajustes";
 import { insertDetalle } from "../helpers/Ajustes";
-import { updateProducts, updateProductsConStock } from "../helpers/Products";
+import { updateProductsConStock } from "../helpers/Products";
 import { Alert } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({

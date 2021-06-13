@@ -5,24 +5,26 @@ import { getProductsAjuste } from "../helpers/Products";
 import { VentanaInsertar } from "./Insert.js";
 import { Box } from "@material-ui/core";
 import {SearchProducts} from './SearchProducts';
+import { Alert } from "@material-ui/lab";
 
 
 export default function VentanaProductos(props) {
   const { onClose, selectedValue, open, setDetProductos } = props;
   const [modal, setModal] = useState(false);
+  const [error, setError] = useState(false);
+  const [alertMsg, setAlertMsg] = useState("");
 
   const abrirCerrarModal = () => {
     setModal((modal) => !modal);
   };
+
   const handleClose = () => {
     onClose(selectedValue);
     getProductsAjuste().then((arrayProducts) => {
       setProducts({ data: arrayProducts, loading: true });
     });
   };
-
   const [products, setProducts] = useState({ data: [], loading: false });
-
 
   useEffect(() => {
     getProductsAjuste().then((arrayProducts) => {
@@ -60,11 +62,17 @@ export default function VentanaProductos(props) {
           <ProductAjusCard
             key={res.pro_id}
             product={res}
-            setProducts={setProducts}
+            setAlertMsg={setAlertMsg}
+            setError={setError}
             setDetProductos={setDetProductos}
           ></ProductAjusCard>
         ))}
       </DialogContent>
+      {error && (
+        <Alert variant="filled" severity="warning" >
+          {alertMsg}
+        </Alert>
+      )}
       <VentanaInsertar
         setProducts={setProducts}
         modal={modal}

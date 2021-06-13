@@ -1,15 +1,11 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import Add from "@material-ui/icons/Add";
 import carrito from "../assets/carrito.png";
 import { Row, Item } from "@mui-treasury/components/flex";
 import { Info, InfoTitle, InfoSubtitle } from "@mui-treasury/components/info";
 import { useTutorInfoStyles } from "@mui-treasury/styles/info/tutor";
-import { useSizedIconButtonStyles } from "@mui-treasury/styles/iconButton/sized";
 import { useDynamicAvatarStyles } from "@mui-treasury/styles/avatar/dynamic";
-import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -34,7 +30,6 @@ export const CardAjusteDetalle = ({ product, setDetProductos }) => {
   const changeCantidad = (e) => {
     const cantidad = e.target.value;
     setDetProductos(cantidadState=>{
-      console.log(cantidadState);
       const isExist = verifyExistence(cantidadState)
       let cantidadState2 = cantidadState;
       if (isExist.exist) {
