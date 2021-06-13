@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const Update = ({ modal, setModal, product,setProducts,update }) => {
   const styles = useStyles();
+  const classes = useStyles();
 
   const [isUpdate,setIsUpdate] = useState(update)    
   const [name, setName] = useState(product.pro_nombre );
@@ -48,7 +49,16 @@ export const Update = ({ modal, setModal, product,setProducts,update }) => {
   const [pvp, setPvp] = useState(product.pro_pvp );
   const [iva, setIva] = useState(product.pro_iva );
   const [status, setStatus] = useState(product.pro_activo);
+  const [error, setError] = useState(false);
+  const [alertMsg, setAlertMsg] = useState("");
 
+  const showMessage = (message, state) => {
+    setAlertMsg(message);
+    state(true);
+    setTimeout(() => {
+      state(false);
+    }, 3000);
+  };
   const abrirCerrarModal = () => {
     setModal((modal) => !modal);
     setIsUpdate(false);
@@ -56,6 +66,21 @@ export const Update = ({ modal, setModal, product,setProducts,update }) => {
 
   const updateProductos= async (e)=>{
     e.preventDefault();
+    if (name.length === 0) {
+      showMessage("Ingrese un nombre al producto", setError);
+    } else if (name.length >50){
+      showMessage("El nombre del producto debe ser de máximo 50 caracteres", setError);
+    } else if (description.length===0){
+      showMessage("Ingrese una descripción al producto", setError);
+    } else if (description.length>100){
+      showMessage("La descripción del producto debe ser de máximo 100 caracteres", setError);
+    } else if(cost <=0){
+      showMessage("El costo del producto no puede ser menor que cero", setError);
+    } else if(pvp <=0){
+      showMessage("El costo de venta del producto no puede ser menor que cero", setError);
+    }
+    else{
+    
     setProducts((productos)=>{return({data:productos.data,loading:false})});
     await updateProducts(product.pro_id,name,description,iva,cost,pvp,status);
     const arrayProducts = await getProducts();
@@ -65,6 +90,7 @@ export const Update = ({ modal, setModal, product,setProducts,update }) => {
         abrirCerrarModal();
     }, 600); 
   }
+}
   
   
   const body = (
@@ -101,6 +127,11 @@ export const Update = ({ modal, setModal, product,setProducts,update }) => {
         <Button  onClick={abrirCerrarModal}>Cancelar</Button>
       </div>
       {isUpdate && <Alert severity="success">Producto actualizado correctamente</Alert>}
+      {error && (
+        <Alert variant="filled" severity="warning" className={classes.alert}>
+          {alertMsg}
+        </Alert>
+      )}
     </form >
   );
   return (
