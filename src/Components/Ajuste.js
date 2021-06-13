@@ -32,13 +32,12 @@ const useStyles = makeStyles((theme) => ({
 
 export const Ajuste = () => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
 
-  const [detalleProductos, setDetalleProductos] = useState([]);
+  const [open, setOpen] = React.useState(false);
 
   const [cabDescripcion, setCabDescripcion] = useState('');
 
-  const [detCantidad, setDetCantidad] = useState([]);
+  const [detProductos, setDetProductos] = useState([]);
 
   const [ajusIngresado, setAjusIngresado] = useState(false);
 
@@ -49,6 +48,7 @@ export const Ajuste = () => {
   const handleClickOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -63,11 +63,15 @@ export const Ajuste = () => {
 
   const validateProductCant = () => {
     let noCant = {cant:false, nameProduct:null};
-  
-    detCantidad.map((res) => {
-      console.log(res.cantidad)
-      if (res.cantidad.length === 0) {
-        noCant = {cant:true, nameProduct:res.pro_nombre}
+    let stockActualizado;
+    detProductos.map((res) => {
+      stockActualizado = res.product.pro_stock + parseInt(res.cantidad);
+      if (res.cantidad === '0' || res.cantidad === '-0' || res.cantidad.length === 0) {
+        noCant = {cant:'cantidad-invalida', nameProduct:res.product.pro_nombre}
+        return;
+      }
+      else if( stockActualizado < 0){
+        noCant = {cant:'cantidad-menor', nameProduct:res.product.pro_nombre}
         return;
       }
     });
@@ -75,24 +79,31 @@ export const Ajuste = () => {
   };
 
   const insertCabeceraFuncion = async () => {
+    validateProductCant()
     if (cabDescripcion.length === 0) {
       showMessage("Ingrese una descripción antes de guardar", setError);
     } else {
-      if (detCantidad.length !== 0) {
-        const objectCabecera = await insertCabecera(cabDescripcion);
-        const idCabecera = objectCabecera.body.cabecera.idCabecera;
-        let stockactualizado;
-        if (validateProductCant().cant) {
-          showMessage(`El producto ${validateProductCant.nameProduct} no tiene cantidad asignada`, setError)
+      const validateCant = validateProductCant();
+      if (detProductos.length !== 0) {
+        if (validateCant.cant === 'cantidad-invalida') {
+          showMessage(`El producto ${validateCant.nameProduct} no tiene cantidad asignada`, setError)
+        }
+        else if(validateCant.cant === 'cantidad-menor')
+        {
+          showMessage(`Cantidad de stock de ${validateCant.nameProduct} insuficiente`, setError)
         }
         else{
-          detCantidad.map((res) => {
+          let stockactualizado;
+          const objectCabecera = await insertCabecera(cabDescripcion);
+          const idCabecera = objectCabecera.body.cabecera.idCabecera;
+          detProductos.map((res) => {
             stockactualizado = res.product.pro_stock + parseInt(res.cantidad);
             insertDetalle( res.cantidad, idCabecera, res.product.pro_id, stockactualizado);
             updateProductsConStock( res.product.pro_id, res.product.pro_nombre, res.product.pro_descripcion,res.product.pro_iva,
                                     res.product.pro_costo,res.product.pro_pvp, res.product.pro_activo,stockactualizado);
           });
           setCabDescripcion('');
+          setDetProductos([]);
           setAjusIngresado(true);
           setTimeout(() => {
             setAjusIngresado(false);
@@ -109,8 +120,8 @@ export const Ajuste = () => {
     <div>
       <CabeceraAjuste setCabDescripcion={setCabDescripcion}></CabeceraAjuste>
       <DetalleAjuste
-        setDetCantidad={setDetCantidad}
-        detCantidad = {detCantidad}
+        setDetProductos={setDetProductos}
+        detProductos = {detProductos}
       ></DetalleAjuste>
 
       <Fab
@@ -150,8 +161,7 @@ export const Ajuste = () => {
       <VentanaProductos
         open={open}
         className
-        setDetalleProductos={setDetalleProductos}
-        setDetCantidad={setDetCantidad}
+        setDetProductos={setDetProductos}
         onClose={handleClose}
       ></VentanaProductos>
     </div>

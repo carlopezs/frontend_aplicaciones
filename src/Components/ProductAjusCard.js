@@ -25,15 +25,15 @@ const useStyles = makeStyles(() => ({
 
 
 
-export const ProductAjusCard = ({ product, setDetalleProductos, setDetCantidad }) => {
+export const ProductAjusCard = ({ product, setDetProductos }) => {
   const styles = useStyles();
   const iconBtnStyles = useSizedIconButtonStyles({ padding: 6 });
   const avatarStyles = useDynamicAvatarStyles({ radius: 12, size: 48 });
 
   const addDetails = ()=>{
-    setDetCantidad(res=>{
+    setDetProductos(res=>{
       console.log(res);
-      return[{ product, cantidad:0 },...res]
+      return[{ product, cantidad:1 },...res]
     })
   };
   return (

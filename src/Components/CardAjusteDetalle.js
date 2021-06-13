@@ -27,13 +27,13 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const CardAjusteDetalle = ({ product, setDetCantidad, cantidad }) => {
+export const CardAjusteDetalle = ({ product, setDetProductos }) => {
   const avatarStyles = useDynamicAvatarStyles({ radius: 12, size: 48 });
   const styles = useStyles();
 
   const changeCantidad = (e) => {
     const cantidad = e.target.value;
-    setDetCantidad(cantidadState=>{
+    setDetProductos(cantidadState=>{
       console.log(cantidadState);
       const isExist = verifyExistence(cantidadState)
       let cantidadState2 = cantidadState;
@@ -60,7 +60,7 @@ export const CardAjusteDetalle = ({ product, setDetCantidad, cantidad }) => {
   }
 
   const deleteDetail = () =>{
-    setDetCantidad(detalleCantidad =>{
+    setDetProductos(detalleCantidad =>{
       const detCantidad = detalleCantidad.filter(element => element.product.pro_id !== product.pro_id)
       return detCantidad;
     })
@@ -91,7 +91,7 @@ export const CardAjusteDetalle = ({ product, setDetCantidad, cantidad }) => {
           id="standard-number"
           label="Cantidad"
           type="number"
-          defaultValue="0"
+          defaultValue="1"
           InputLabelProps={{
             shrink: true,
           }}

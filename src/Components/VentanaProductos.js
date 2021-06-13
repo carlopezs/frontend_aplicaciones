@@ -6,23 +6,9 @@ import { VentanaInsertar } from "./Insert.js";
 import { Box } from "@material-ui/core";
 import {SearchProducts} from './SearchProducts';
 
-/* export default function VentanaProductos(props){
-    
-    const{openWindow, setOpenWindow}= props;
-    return(
-        <Dialog open={openWindow}>
-            <DialogTitle>
-                <div>Productos</div>
-            </DialogTitle>
-            <DialogContent>
-                <div>ListadoProductos</div>
-            </DialogContent>
-        </Dialog>
-    );
-}; */
 
 export default function VentanaProductos(props) {
-  const { onClose, selectedValue, open, setDetalleProductos, setDetCantidad } = props;
+  const { onClose, selectedValue, open, setDetProductos } = props;
   const [modal, setModal] = useState(false);
 
   const abrirCerrarModal = () => {
@@ -30,6 +16,9 @@ export default function VentanaProductos(props) {
   };
   const handleClose = () => {
     onClose(selectedValue);
+    getProductsAjuste().then((arrayProducts) => {
+      setProducts({ data: arrayProducts, loading: true });
+    });
   };
 
   const [products, setProducts] = useState({ data: [], loading: false });
@@ -71,9 +60,8 @@ export default function VentanaProductos(props) {
           <ProductAjusCard
             key={res.pro_id}
             product={res}
-            setDetalleProductos={setDetalleProductos}
             setProducts={setProducts}
-            setDetCantidad={setDetCantidad}
+            setDetProductos={setDetProductos}
           ></ProductAjusCard>
         ))}
       </DialogContent>
