@@ -99,8 +99,7 @@ export const Ajuste = () => {
           detProductos.map((res) => {
             stockactualizado = res.product.pro_stock + parseInt(res.cantidad);
             insertDetalle( res.cantidad, idCabecera, res.product.pro_id, stockactualizado);
-            updateProductsConStock( res.product.pro_id, res.product.pro_nombre, res.product.pro_descripcion,res.product.pro_iva,
-                                    res.product.pro_costo,res.product.pro_pvp, res.product.pro_activo,stockactualizado);
+           
           });
           setCabDescripcion('');
           setDetProductos([]);
