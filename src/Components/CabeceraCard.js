@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import cx from "clsx";
 import { useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,6 +14,7 @@ import { Document } from "./Document";
 import Button from "@material-ui/core/Button";
 import { Box } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { getDetallesByCab } from "../helpers/Ajustes";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -35,13 +36,20 @@ export const CabeceraCard = ({ cabecera }) => {
   const styles = useN03TextInfoContentStyles();
   const shadowStyles = useLightTopShadowStyles();
   const cardStyles = useStyles();
-  const boxStyle = useStyles();
 
   const documentRef = useRef();
+
+  const [detail, setDetail] = useState([])
 
   const handlePrint = useReactToPrint({
     content: () => documentRef.current,
   });
+
+
+  useEffect( async () => {
+      const detalles = await getDetallesByCab(cabecera.cab_id);
+      setDetail(detalles);
+  }, [])
 
   return (
     <>
@@ -60,9 +68,9 @@ export const CabeceraCard = ({ cabecera }) => {
             <strong>Impresión:</strong> {cabecera.cab_imp.toString()}{" "}
           </p>
 
-          <div style={{ display: "none" }}>
-            <Document ref={documentRef}></Document>
-          </div>
+          {detail.length&&<div style={{ display: "none" }}>
+            <Document cabecera={cabecera} detail={detail} ref={documentRef}></Document>
+          </div>}
 
           <Box
             className={cardStyles.containerButton}
@@ -78,13 +86,11 @@ export const CabeceraCard = ({ cabecera }) => {
             >
               Imprimir
             </Button>
-
-            <Button  className={boxStyle.button} size="large" variant="contained" color="primary">
-              <Link  to="/actualizarajuste">
-                {" "}
+          <Link  to="/actualizarajuste">
+            <Button size="large" variant="contained" color="primary">  
                 Actualizar Ajuste
-              </Link>
             </Button>
+          </Link>
           </Box>
         </CardContent>
       </Card>

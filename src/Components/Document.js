@@ -1,4 +1,5 @@
 import React from "react";
+import { getDetallesByCab } from "../helpers/Ajustes";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -40,40 +41,44 @@ const rows = [
 ];
 
 export class Document extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.cabecera = props.cabecera;
+    this.detail = props.detail;
+  }
+
+
+
   render() {
     return (
-      <div style={{padding:"20px"}}>
-        <Card style={{marginBottom:"20px",marginTop:'20px'}}>
-          <Box display="flex" justifyContent="space-between" style={{marginBottom:"20px"}}>
-            <h2>Código del ajuste:Ajuste-0001</h2>
-            <h2>Fecha: 3/5/21</h2>
+      <div style={{ padding: "20px" }}>
+        <Card style={{ marginBottom: "20px", marginTop: "20px" }}>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            style={{ marginBottom: "20px" }}
+          >
+            <h2>Código del ajuste:{this.cabecera.cab_num}</h2>
+            <h2>Fecha: {this.cabecera.cab_fecha.split("T")[0]}</h2>
           </Box>
-          <h2>Descripción: Esta es la descripción</h2>
+          <h2>Descripción: {this.cabecera.cab_descripcion}</h2>
         </Card>
-        <hr/>
+        <hr />
         <TableContainer>
           <Table aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell>Fecha</StyledTableCell>
-                <StyledTableCell align="right">Documento</StyledTableCell>
-                <StyledTableCell align="right">Descripción</StyledTableCell>
+                <StyledTableCell>Producto</StyledTableCell>
                 <StyledTableCell align="right">Cantidad</StyledTableCell>
                 <StyledTableCell align="right">Stock</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <StyledTableRow key={row.name}>
-                  <StyledTableCell component="th" scope="row">
-                    {row.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.calories}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                  <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                  <StyledTableCell align="right">{row.protein}</StyledTableCell>
+              {this.detail.map(({det_cantidad,pro_nombre,pro_id,det_stock_registro}) => (
+                <StyledTableRow key={pro_id}>
+                  <StyledTableCell align="left">{pro_nombre}</StyledTableCell>
+                  <StyledTableCell align="right">{det_cantidad}</StyledTableCell>
+                  <StyledTableCell align="right">{det_stock_registro}</StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>

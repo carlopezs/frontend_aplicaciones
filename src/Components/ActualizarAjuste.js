@@ -8,7 +8,7 @@ import CabeceraAjuste from "./CabeceraAjuste";
 import DetalleAjuste from "./DetalleAjuste";
 import { insertCabecera } from "../helpers/Ajustes";
 import { insertDetalle } from "../helpers/Ajustes";
-import { updateProducts, updateProductsConStock } from "../helpers/Products";
+import {  updateProductsConStock } from "../helpers/Products";
 import { Alert } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({

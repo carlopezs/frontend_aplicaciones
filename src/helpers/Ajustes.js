@@ -36,8 +36,11 @@ export const updateCabecera = async (cab_id, cab_descripcion) => {
 };
 
 export const getDetallesByCab = async (cab_id) => {
-  const url = `https://proyecto-nosotros.herokuapp.com/ajustes/det/:cab_id?pro_id=${cab_id}`;
-  const response = await fetch(url);
+  const url = `https://proyecto-nosotros.herokuapp.com/ajustes/det/${cab_id}`;
+  const response = await fetch(url,{
+    method:'GET',
+    
+  });
   const data = await response.json();
   return data;
 };
