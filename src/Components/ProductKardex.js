@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
   }));
   
 
-export const ProductKardex = () => {
+export const ProductKardex = ({detProductos}) => {
    const styles = useStyles();
    const avatarStyles = useDynamicAvatarStyles({ radius: 12, size: 48 });
   return (
@@ -32,7 +32,11 @@ export const ProductKardex = () => {
         <Avatar classes={avatarStyles} src={carrito} />
       </Item>
       <Info position={"middle"} useStyles={useTutorInfoStyles}>
-        <InfoTitle>De click en el buton para buscar el producto</InfoTitle>
+        {detProductos.pro_id ===undefined && <InfoTitle>De click en el buton para buscar el producto</InfoTitle>}
+        {detProductos.pro_id !==undefined &&<Info position={"middle"} useStyles={useTutorInfoStyles}>
+        <InfoTitle>Codigo de producto: PRD-00{detProductos.pro_id} </InfoTitle>
+        <InfoSubtitle>Producto: {detProductos.pro_nombre}</InfoSubtitle>
+      </Info>}
       </Info>
     </Row>
   );

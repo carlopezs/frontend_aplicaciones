@@ -30,7 +30,7 @@ function App() {
           <Route path="/update">
             <Update/>
           </Route>
-          <Route path="/actualizarajuste">
+          <Route path="/actualizarajuste/:cab_id">
             <ActualizarAjuste />
           </Route>
           <Route path="/">

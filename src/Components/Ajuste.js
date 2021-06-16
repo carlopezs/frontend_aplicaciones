@@ -96,9 +96,9 @@ export const Ajuste = () => {
           let stockactualizado;
           const objectCabecera = await insertCabecera(cabDescripcion);
           const idCabecera = objectCabecera.body.cabecera.idCabecera;
-          detProductos.map((res) => {
+          detProductos.map(async (res) => {
             stockactualizado = res.product.pro_stock + parseInt(res.cantidad);
-            insertDetalle( res.cantidad, idCabecera, res.product.pro_id, stockactualizado);
+            await insertDetalle( res.cantidad, res.product.pro_id, stockactualizado);
            
           });
           setCabDescripcion('');
@@ -159,7 +159,6 @@ export const Ajuste = () => {
       )}
       <VentanaProductos
         open={open}
-        className
         setDetProductos={setDetProductos}
         onClose={handleClose}
       ></VentanaProductos>

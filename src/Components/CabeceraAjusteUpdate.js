@@ -13,8 +13,7 @@ import { Row, Item } from "@mui-treasury/components/flex";
 import Fondo_Ajuste_02 from "../images/Fondo_Ajuste_04.jpg";
 import Icono_Ajuste_01 from "../images/Icono_Ajuste.png";
 import TextField from "@material-ui/core/TextField";
-import {getCabecerasNumeroID} from "../helpers/Ajustes";
-import { useEffect, useState } from "react";
+
 
 const useGridStyles = makeStyles(({ breakpoints }) => ({
   root: {
@@ -130,13 +129,7 @@ const useStyles = makeStyles(({ palette }) => ({
 
 
 
-
-
-
-
- 
-
-const CustomCard = ({ styles, cover, logo, title, brand, date }) => {
+const CustomCard = ({ styles, cover, logo, title, date }) => {
   
   const mediaStyles = useCoverCardMediaStyles();
   return (
@@ -156,7 +149,9 @@ const CustomCard = ({ styles, cover, logo, title, brand, date }) => {
             <Item>
               <div className={styles.date}>{date}</div>
             </Item>
-       
+            {/*   <Item position={'right'}>
+            <div className={styles.team}>{brand}</div>
+            </Item> */}
           </Row>
         </Box>
       </Box>
@@ -164,24 +159,19 @@ const CustomCard = ({ styles, cover, logo, title, brand, date }) => {
   );
 };
 
-export const CabeceraAjuste = ({ setCabDescripcion }) => {
+export const CabeceraAjusteUpdate = ({ setCabecera,cabecera }) => {
   const styles1 = useStyles({ color: "#fc7944" });
   const styles2 = useStyles({ color: "#5357ce" });
 
+  console.log(cabecera);
   const gridStyles = useGridStyles();
 
-  const [cabeceranum, setCabeceraNumero] = useState("");
- 
-  const numeroCabecera = async()=>{
-    setCabeceraNumero( await getCabecerasNumeroID())
-  };
-  
-  useEffect(() => {
-    numeroCabecera()
-  }, []);
-
   const FechaHoy=new Date();
-  
+
+  const setDescription = (e) =>{
+      cabecera[0].cab_descripcion =e.target.value;
+      setCabecera(cabecera);
+  }
 
   return (
     <>
@@ -207,17 +197,14 @@ export const CabeceraAjuste = ({ setCabDescripcion }) => {
             title={
               <>
                  
-                {cabeceranum}
+                {cabecera[0].cab_num}
                 <br />
                 <TextField
                   className={styles1.textField}
-                  onChange={(e) => {
-                    setCabDescripcion(e.target.value);
-                  }}
+                  onChange={setDescription}
                   required
                   id="filled-required"
-                  label="Descripción"
-                  defaultValue=" "
+                  defaultValue={cabecera[0].cab_descripcion}
                   variant="filled"
                   InputProps={{
                     className: styles1.textField,
@@ -233,4 +220,4 @@ export const CabeceraAjuste = ({ setCabDescripcion }) => {
   );
 };
 
-export default CabeceraAjuste;
+export default CabeceraAjusteUpdate;

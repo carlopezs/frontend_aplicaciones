@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import NavigationIcon from "@material-ui/icons/Navigation";
-import { makeStyles, StylesProvider } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import VentanaProductos from "./VentanaProductos";
-import CabeceraAjuste from "./CabeceraAjuste";
-import DetalleAjuste from "./DetalleAjuste";
-import { insertCabecera } from "../helpers/Ajustes";
-import { insertDetalle } from "../helpers/Ajustes";
-import {  updateProductsConStock } from "../helpers/Products";
+import CabeceraAjusteUpdate from "./CabeceraAjusteUpdate";
+import DetalleAjusteUpdate from "./DetalleAjusteUpdate";
+import { getCabeceraById, getDetallesByCab, updateCabecera, updateDetalle } from "../helpers/Ajustes";
 import { Alert } from "@material-ui/lab";
+import { useParams } from "react-router-dom";
+import { getProductById } from "../helpers/Products";
 
 const useStyles = makeStyles((theme) => ({
   add: {
@@ -33,6 +33,32 @@ const useStyles = makeStyles((theme) => ({
 export const ActualizarAjuste = () => {
   const classes = useStyles();
 
+  const {cab_id} = useParams();
+  const [cabecera, setCabecera] = useState([]);
+  const [detallesNoModi, setDetallesNoModi] = useState([]);
+  const [detalles, setDetalles] = useState([]);
+
+
+
+  useEffect(() => {
+   getCabeceraById(cab_id).then(res=>{
+      setCabecera(res);
+   })
+   getDetallesByCab(cab_id).then(res=>{
+     console.log(res);
+     setDetalles(res);
+   })
+  }, [])
+
+  const getProductStock = async (pro_id) =>{
+    const product = await getProductById(pro_id);
+    return product;
+    
+  } 
+
+
+
+
   const [open, setOpen] = React.useState(false);
 
   const [cabDescripcion, setCabDescripcion] = useState('');
@@ -44,6 +70,8 @@ export const ActualizarAjuste = () => {
   const [error, setError] = useState(false);
 
   const [alertMsg, setAlertMsg] = useState("");
+
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -77,54 +105,40 @@ export const ActualizarAjuste = () => {
     });
     return noCant;
   };
+  
+  const verifyModify = ({det_id,det_cantidad}) =>{
+    getDetallesByCab(cab_id).then(res=>{
+      setDetalles(res);
+    })
+    const modify = detallesNoModi.find(res=>res.det_cantidad == det_cantidad)
+    return modify;
+  }
 
-  const insertCabeceraFuncion = async () => {
-    validateProductCant()
-    if (cabDescripcion.length === 0) {
-      showMessage("Ingrese una descripción antes de guardar", setError);
-    } else {
-      const validateCant = validateProductCant();
-      if (detProductos.length !== 0) {
-        if (validateCant.cant === 'cantidad-invalida') {
-          showMessage(`El producto ${validateCant.nameProduct} no tiene cantidad asignada`, setError)
-        }
-        else if(validateCant.cant === 'cantidad-menor')
-        {
-          showMessage(`Cantidad de stock de ${validateCant.nameProduct} insuficiente`, setError)
-        }
-        else{
-          let stockactualizado;
-          const objectCabecera = await insertCabecera(cabDescripcion);
-          const idCabecera = objectCabecera.body.cabecera.idCabecera;
-          detProductos.map((res) => {
-            stockactualizado = res.product.pro_stock + parseInt(res.cantidad);
-            insertDetalle( res.cantidad, idCabecera, res.product.pro_id, stockactualizado);
-            updateProductsConStock( res.product.pro_id, res.product.pro_nombre, res.product.pro_descripcion,res.product.pro_iva,
-                                    res.product.pro_costo,res.product.pro_pvp, res.product.pro_activo,stockactualizado);
-          });
-          setCabDescripcion('');
-          setDetProductos([]);
-          setAjusIngresado(true);
-          setTimeout(() => {
-            setAjusIngresado(false);
-          }, 1500);
-        }
-        
-      } else {
-        showMessage("Verifique que haya productos en el ajuste", setError);
-      }
-    }
+  const updateCabeceraFuncion = async () => {
+    let stockActualizado;
+    await updateCabecera(cab_id,cabecera[0].cab_descripcion);
+    detalles.map((detalle)=>{
+      console.log(verifyModify(detalle));
+       getProductStock(detalle.pro_id).then(res=>{
+          stockActualizado = parseInt(res[0].pro_stock) + parseInt(detalle.det_cantidad);
+       })
+   
+      /* await updateDetalle(res.det_id,res.det_cantidad) */
+    })
+    /* await updateDetalle() */
+         
   };
 
   return (
     <div>
-      <CabeceraAjuste setCabDescripcion={setCabDescripcion}></CabeceraAjuste>
-      <DetalleAjuste
-        setDetProductos={setDetProductos}
-        detProductos = {detProductos}
-      ></DetalleAjuste>
+      {cabecera.length!==0&&<CabeceraAjusteUpdate cabecera={cabecera} setCabecera={setCabecera}></CabeceraAjusteUpdate>}
 
-      <Fab
+      {detalles.length!==0&&<DetalleAjusteUpdate 
+        setDetalles={setDetalles}
+        detalles = {detalles}
+      ></DetalleAjusteUpdate>}
+
+   {/*    <Fab
         className={classes.add}
         position="absolute"
         bottom="theme.spacing(2)"
@@ -134,7 +148,7 @@ export const ActualizarAjuste = () => {
         onClick={handleClickOpen}
       >
         <AddIcon />
-      </Fab>
+      </Fab> */}
       <Fab
         className={classes.save}
         variant="extended"
@@ -143,10 +157,10 @@ export const ActualizarAjuste = () => {
         right="theme.spacing(2)"
         color="primary"
         aria-label="add"
-        onClick={insertCabeceraFuncion}
+        onClick={updateCabeceraFuncion}
       >
         <NavigationIcon className={classes.extendedIcon} />
-        Guardar
+        Actualizar
       </Fab>
       {ajusIngresado && (
         <Alert variant="filled" severity="success" className={classes.alert}>
@@ -158,12 +172,12 @@ export const ActualizarAjuste = () => {
           {alertMsg}
         </Alert>
       )}
-      <VentanaProductos
+{/*       <VentanaProductos
         open={open}
         className
         setDetProductos={setDetProductos}
         onClose={handleClose}
-      ></VentanaProductos>
+      ></VentanaProductos> */}
     </div>
   );
 };
